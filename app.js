@@ -20,7 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.get('/', (request, response)=>{
-    Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode: 'extended', count: 200,  exclude_replies: true, include_rts: false},(error ,data, res)=>{
+    Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode: 'extended', count: 5,  exclude_replies: true, include_rts: false},(error ,data, res)=>{
         filteredData = data.filter((tweet)=>{
             if (tweet.full_text.includes("EarthquakePH")){
                 tweet.earthquake_details = {}
