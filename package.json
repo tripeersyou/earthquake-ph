@@ -1,0 +1,27 @@
+{
+  "name": "earthquake-ph",
+  "version": "1.0.0",
+  "description": "Gets Earthquake Data from PhiVolcs Twitter to be more understandable by the general public",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tripeersyou/earthquake-ph.git"
+  },
+  "author": "Francis Avancena",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tripeersyou/earthquake-ph/issues"
+  },
+  "homepage": "https://github.com/tripeersyou/earthquake-ph#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "socket.io": "^2.3.0",
+    "twit": "^2.2.11"
+  }
+}
