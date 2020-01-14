@@ -1,4 +1,4 @@
 <% data.forEach(function(tweet){ %>
 <iframe width="600" height="450" frameborder="0" style="border:0"
-src="https://www.google.com/maps/embed/v1/place?q=<%- tweet.earthquake_details.location %>&key=AIzaSyD80B4tPR7ZHcg9iqRtzgm8pX9zKEpmJKs" allowfullscreen></iframe>
+src="https://www.google.com/maps/embed/v1/place?q=<%- tweet.earthquake_details.location %>&key=<%- apiKey %>" allowfullscreen></iframe>
 <% }); %>
