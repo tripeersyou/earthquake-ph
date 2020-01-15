@@ -1,0 +1,43 @@
+<%- include('layouts/header') %>
+<h1 class="post-title">About</h1>
+<small>What is Earthquake PH about?</small>
+<hr>
+<p>Earthquake PH is a website that gives details about earthquakes in the Philippines in a understandable manner through, descriptions and map visualizations of where earthquakes are. This site was created to make the general public informed about details about earthquakes making information understandable to the normal citizen.</p>
+<h1 class="post-title">How It Works</h1>
+<small>A glimpse to the implemenation of Earthquake PH</small>
+<hr>
+<p>This site uses the Twitter API to scrape the most recent tweets from the PHIVOLCS account every fifteen minutes. From the recent tweets, we filter to them to get tweets specifically regarding earthquake information. Next we parsed the information from the full text of the Tweet to get the following information:</p>
+<ul>
+    <li>Date and Time</li>
+    <li>Location</li>
+    <li>Latitude</li>
+    <li>Longitude</li>
+    <li>Strength or Magnitude</li>
+    <li>Depth of Focus</li>
+</ul>
+<p>After this we run the coordinates to a reverse Geocoder to give us an address of where the epicenter of the earthquake is and then save it to our database.</p>
+<h1 class="post-title">Technology Used</h1>
+<small>The APIs that made it all possible</small>
+<hr>
+<table class="ui very simple table">
+    <tr>
+        <td>Twitter API</td>
+        <td>Used to get all the information from PHIVOLCS Twitter Account</td>
+    </tr>
+    <tr>
+        <td>Google Maps Embed API</td>
+        <td>Used in the individual earthquake detail pages to show the epicenter of the earthquakes</td>
+    </tr>
+    <tr>
+        <td>Location IQ</td>
+        <td>Used to get an address from the coordinates in the tweet.</td>
+    </tr>
+    <tr>
+        <td>Leaflet and OpenStreetMap</td>
+        <td>Used in the Quake Map page to show multiple markers of the 10 latest earthquakes in the country.</td>
+    </tr>
+</table>
+
+
+<div style="text-align:center"><b>Developed by: <a href="https://francisoliver.dev">Francis Oliver Avanceña</a></b></div>
+<%- include('layouts/footer') %>

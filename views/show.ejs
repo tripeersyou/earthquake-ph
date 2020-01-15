@@ -1,0 +1,82 @@
+<%- include('layouts/header') %>
+    <div class="ui breadcrumb">
+        <a href="/" class="section">Home</a>
+        <i class="right angle icon divider"></i>
+        <div class="active section">Earthquake Details: <%- earthquake.province %></div>
+    </div>
+    <h1 class="post-title">Earthquake Details: <%- earthquake.province %></h1>
+    <p><b>Date and Time</b>: <%- earthquake.earthquake_details.datetime %></p>
+    <hr>
+    <br>
+
+    <div class="ui stackable grid">
+        <div class="eight wide column">
+            <%- tweet_embed %>
+        </div>
+        <div class="eight wide column">
+            <table class="ui very simple table">
+            <tr>
+                <td><b>Magnitude<b></td>
+                <td><%- earthquake.earthquake_details.strength %></td>
+            </tr>
+            <tr>
+                <td><b>Strength Description</b></td>
+                <% if(earthquake.earthquake_details.strength < 2.0){%>
+                <td>Micro Earthquake</td>
+                <% } else if (earthquake.earthquake_details.strength < 4.0){  %>
+                <td>Minor Earthquake</td>
+                <% } else if (earthquake.earthquake_details.strength < 5.0){ %>
+                <td>Light Earthquake</td>
+                <% } else if (earthquake.earthquake_details.strength < 6.0){ %>
+                <td>Moderate Earthquake</td>
+                <% } else if (earthquake.earthquake_details.strength < 7.0){ %>
+                <td>Strong Earthquake</td>
+                <% } else if (earthquake.earthquake_details.strength < 8.0){ %>
+                <td>Major Earthquake</td>
+                <% } else if (earthquake.earthquake_details.strength < 10.0){ %>
+                <td>Great Earthquake </td>
+                <% } else if (earthquake.earthquake_details.strength >= 10.0){ %>
+                <td>Epic Earthquake</td>
+                <% } %>
+            </tr>
+            <tr>
+                <td><b>Earthquake Effect</b></td>
+                <% if(earthquake.earthquake_details.strength < 2.0){%>
+                <td>Micro earthquakes, not felt.</td>
+                <% } else if (earthquake.earthquake_details.strength < 3.0){  %>
+                <td>Generally not felt, but recorded.</td>
+                <% } else if (earthquake.earthquake_details.strength < 4.0){ %>
+                <td>Often felt, but rarely causes damage.</td>
+                <% } else if (earthquake.earthquake_details.strength < 5.0){ %>
+                <td>Noticeable shaking of indoor items, rattling noises. Significant damage unlikely.</td>
+                <% } else if (earthquake.earthquake_details.strength < 6.0){ %>
+                <td>Can cause major damage to poorly constructed buildings over small regions. At most slight damage to well-designed buildings.</td>
+                <% } else if (earthquake.earthquake_details.strength < 7.0){ %>
+                <td>Can be destructive in areas up to about 160 kilometres (100 mi) across in populated areas.</td>
+                <% } else if (earthquake.earthquake_details.strength < 8.0){ %>
+                <td>Can cause serious damage over larger areas.</td>
+                <% } else if (earthquake.earthquake_details.strength < 9.0){ %>
+                <td>Can cause serious damage in areas several hundred miles across.</td>
+                <% } else if (earthquake.earthquake_details.strength >= 9.0){ %>
+                <td>Devastating in areas several thousand miles across.</td>
+                <% } %>
+            </tr>
+            <tr>
+                <td><b>Latitude<b></td>
+                <td><%- earthquake.earthquake_details.lat %> degrees N</td>
+            </tr>
+            <tr>
+                <td><b>Longitude<b></td>
+                <td><%- earthquake.earthquake_details.lon %> degrees E</td>
+            </tr>
+            <tr>
+                <td><b>Depth of Focus<b></td>
+                <td><%- earthquake.earthquake_details.depth %> kilometer(s)</td>
+            </tr>
+            </table>
+        </div>
+
+        <h3 >Map Showing the Epicenter of the Earthquake</h3>
+    <iframe width="100%" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=<%- earthquake.earthquake_details.location %>&key=<%- maps_api %>&zoom=11" allowfullscreen></iframe>
+    </div>
+<%- include('layouts/footer') %>

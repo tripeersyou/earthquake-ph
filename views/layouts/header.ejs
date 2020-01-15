@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+   <link rel="stylesheet" href="https://francisoliver.dev/assets/css/application.css">
+   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
+   <link rel="stylesheet" href="/css/application.css">
+   <link rel="preload" as="style" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+   <link rel="preload" as="style" href="https://francisoliver.dev/assets/css/application.css">
+   <link rel="preload" as="style" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
+   <link rel="preload" as="style" href="/css/application.css">
+   <!-- HTML5 shim, for IE6-8 support of HTML elements -->
+   <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+   <!-- Global site tag (gtag.js) - Google Analytics -->
+   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144641660-2"></script>
+   <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+         dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'UA-144641660-2');
+   </script>
+
+   <% if(route == '/' || route.includes('/?page')){ %>
+   <title>Earthquake PH | Home</title>
+   <%} else if (route == '/quake-map') { %>
+   <title>Earthquake PH | Quake Map</title>
+   <%} else if (route == '/about') { %>
+   <title>Earthquake PH | About</title>
+   <% } else if (route.includes('/quake/')){ %>
+   <title>Earthquake PH | Detail</title>
+   <% } else { %>
+   <title>Earthquake PH | 404</title>
+   <% } %>
+</head>
+
+<body>
+   <%- include('menu') %>
+   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+      integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>
+   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+   <script defer src="/javascript/application.js"></script>
+   <%if(route != '/quake-map') { %>
+   <div class="ui container">
+      <% } %>

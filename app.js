@@ -4,11 +4,14 @@ const app = express();
 const PORT = process.env.PORT;
 const bodyParser = require('body-parser');
 const path = require('path');
-const fs = require('fs');
+
 const Twit = require('twit');
 const config = require('./twitter-config');
-const googleApiKey = process.env.maps_api
 const Twitter = new Twit(config);
+
+const googleApiKey = process.env.maps_api
+const mongojs = require('mongojs')
+const db = mongojs(process.env.mongo_uri,['earthquakes']);
 
 app.use(bodyParser.urlencoded({
     extended: false
@@ -20,20 +23,45 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.get('/', (request, response)=>{
-    Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode: 'extended', count: 5,  exclude_replies: true, include_rts: false},(error ,data, res)=>{
-        filteredData = data.filter((tweet)=>{
-            if (tweet.full_text.includes("EarthquakePH")){
-                tweet.earthquake_details = {}
-                tweet.earthquake_details.location =  tweet.full_text.match(/\d{2,}.\d{2,}N, \d{2,}.\d{2,}E/g)[0]
-                tweet.earthquake_details.datetime = tweet.full_text.match(/\d{2} \w{3} \d{4} - \d{2}:\d{2} \w{2}/g)[0]
-                tweet.earthquake_details.strength = tweet.full_text.match(/Magnitude = \d{1,}.\d{1,}/g)[0].match(/\d{1,}.\d{1,}/g)[0]
-                tweet.earthquake_details.depth = tweet.full_text.match(/\d{3,} kilometers/g)[0]
-                return tweet.full_text.includes("EarthquakePH");
-            }
-        });
-        response.render('index', {data: filteredData});
+    let page = request.query.page
+    db.earthquakes.count(function(error,result){
+        let page_limit = Math.ceil(result/parseInt(process.env.page_count));
+        if (page){
+            let page_size = parseInt(process.env.page_count)
+            let offset = (parseInt(page) - 1) * page_size;
+            db.earthquakes.find().sort({tweeted_at: -1}).limit(page_size).skip(offset, function(err, docs){
+                response.render('index', {data: docs, route: request.originalUrl, page_limit: page_limit, page: page});    
+            })
+        } else {
+            let page_size = parseInt(process.env.page_count)
+            db.earthquakes.find().sort({tweeted_at: -1}).limit(page_size , function(err, docs){
+                response.render('index', {data: docs, route: request.originalUrl, page_limit: page_limit, page: 1});
+            })
+        }
     });
 });
+
+app.get('/quake-map', (request, response) =>{
+    db.earthquakes.find().sort({tweeted_at: -1}).limit(10 , function(err, docs){
+        response.render('quake-map', {data: docs, route: request.originalUrl});
+    })
+});
+
+app.get('/about', (request, response) =>{
+    response.render('about', {route: request.originalUrl});
+});
+
+app.get('/quake/:id', (request, response)=>{
+    db.earthquakes.findOne({id_str: request.params.id}, function(err,doc){
+        Twitter.get('statuses/oembed', {url: `https://twitter.com/phivolcs_dost/status/${doc.id_str}`, align: 'center', width: 550},(err, res, next)=>{
+            response.render('show',{earthquake: doc, maps_api: googleApiKey, tweet_embed: res.html, route: request.originalUrl});
+        });
+    })
+});
+
+app.get('*', (request, response)=>{
+    response.render("404",{route: request.originalUrl});
+})
 
 
 app.listen(PORT, ()=>{

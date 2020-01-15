@@ -1,0 +1,16 @@
+#quake-map{
+    height:88vh;
+}
+
+.ui.container {
+    min-height: 86vh !important;
+}
+
+.ui.menu {
+    margin-bottom: 0px;
+    z-index: 9999;
+}
+
+iframe{
+    z-index: 0 !important;
+}
