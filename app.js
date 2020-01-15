@@ -1,4 +1,5 @@
 require('dotenv').config();
+require('newrelic');
 const express = require('express')
 const app = express();
 const PORT = process.env.PORT;
@@ -42,7 +43,7 @@ app.get('/', (request, response)=>{
 });
 
 app.get('/quake-map', (request, response) =>{
-    db.earthquakes.find().sort({tweeted_at: -1}).limit(10 , function(err, docs){
+    db.earthquakes.find().sort({tweeted_at: -1}).limit(50 , function(err, docs){
         response.render('quake-map', {data: docs, route: request.originalUrl});
     })
 });

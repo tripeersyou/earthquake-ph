@@ -12,7 +12,9 @@
         .addTo(quakeMap)
         .bindPopup('<b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
         .openPopup()
+        L.circle([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>], <%- data[i].earthquake_details.strength * 9100 %>).addTo(quakeMap)
    <% } %>
+//    L.circle([12.8797, 121.7740], 10 * 9100).addTo(quakeMap);
  </script>
  <style>
  .ui.menu {
