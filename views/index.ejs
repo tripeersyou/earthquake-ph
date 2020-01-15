@@ -1,39 +1,49 @@
 <%- include('layouts/header') %>
 
 <h1 class="post-title">Earthquake PH</h1>
-<small>Showing and Visualizing PH Earthquakes from the official <a href="https://twitter.com/phivolcs_dost" target="_blank" rel="noopener">PHIVOLCS</a> Twitter Account.</small>
+<small>Showing and Visualizing PH Earthquakes from the official <a href="https://twitter.com/phivolcs_dost"
+    target="_blank" rel="noopener">PHIVOLCS</a> Twitter Account.</small>
 <hr>
-<% data.forEach(async function(tweet){ %>
+<div class="ui stackable grid">
+
+  <% data.forEach(async function(tweet){ %>
+  <div class="eight wide column">
     <div class="ui raised segment">
-        <% if(tweet.province){ %>
-            <h3 class="header">Magnitude <%- tweet.earthquake_details.strength %> Earthquake: <%- tweet.province %></h3>
-        <% } else { %>
-            <h3 class="header">Magnitude <%- tweet.earthquake_details.strength %> Earthquake: <%- tweet.earthquake_details.location %></h3>
-        <% } %>
-        <div class="meta"><b>Date and Time</b>: <%- tweet.earthquake_details.datetime %></div>
-        <div class="description">
-            <p></p>
-            <b>Phivolcs Tweet: </b>
-            <br>
-            <p><%- tweet.full_text %></p>
-            <p></p>
-        </div>
-        <div class="extra">
-            <a href="/quake/<%- tweet.id_str %>" class="ui basic button">View Details</a>
-        </div>
+      <% if(tweet.province){ %>
+      <h3 class="header">Magnitude <%- tweet.earthquake_details.strength %> Earthquake: <%- tweet.province %></h3>
+      <% } else { %>
+      <h3 class="header">Magnitude <%- tweet.earthquake_details.strength %> Earthquake:
+        <%- tweet.earthquake_details.location %></h3>
+      <% } %>
+      <div class="meta"><b>Date and Time</b>: <%- tweet.earthquake_details.datetime %></div>
+      <div class="description">
+        <p></p>
+        <b>Phivolcs Tweet: </b>
+        <br>
+        <p><%- tweet.full_text %></p>
+        <p></p>
+      </div>
+      <div class="extra">
+        <a href="/quake/<%- tweet.id_str %>" class="ui basic button">View Details</a>
+      </div>
     </div>
-<% }); %>
+  </div>
+  <% }); %>
+</div>
+
+<br>
+
 <div class="ui pagination menu">
-  <% if(page == 1) { %> 
-    <a href="/?page=<%- parseInt(page)+1 %>" class="item">Next Page</a>
+  <% if(page == 1) { %>
+  <a href="/?page=<%- parseInt(page)+1 %>" class="item">Next Page</a>
   <% } else { %>
-    <% if(page >= page_limit) { %> 
-      <a href="/?page=<%- parseInt(page)-1 %>"class="item">Previous Page</a>
-    <% } else { %>
-      <a href="/?page=<%- parseInt(page)-1 %>"class="item">Previous Page</a>
-      <div class="disabled item">...</div>
-      <a href="/?page=<%- parseInt(page)+1 %>" class="item">Next Page</a>
-    <% } %>
+  <% if(page >= page_limit) { %>
+  <a href="/?page=<%- parseInt(page)-1 %>" class="item">Previous Page</a>
+  <% } else { %>
+  <a href="/?page=<%- parseInt(page)-1 %>" class="item">Previous Page</a>
+  <div class="disabled item">...</div>
+  <a href="/?page=<%- parseInt(page)+1 %>" class="item">Next Page</a>
+  <% } %>
   <% } %>
 </div>
 <%- include('layouts/footer') %>
