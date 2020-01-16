@@ -42,7 +42,7 @@ app.get('/', (request, response)=>{
 });
 
 app.get('/quake-map', (request, response) =>{
-    db.earthquakes.find().sort({$natural :-1}).limit(50 , function(err, docs){
+    db.earthquakes.find().sort({$natural :-1}).limit(20 , function(err, docs){
         response.render('quake-map', {data: docs, route: request.originalUrl});
     })
 });

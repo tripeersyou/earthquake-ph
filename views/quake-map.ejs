@@ -1,5 +1,28 @@
 <%- include('layouts/header') %>
- <div id="quake-map"></div>
+ <div id="quake-map">
+    <div class="leaflet-top leaflet-right">
+        <button class="leaflet-control ui button primary" id="customizeMap">Customize Map</button>
+    </div>      
+ </div>
+ <div class="ui modal">
+  <div class="header">Customize Quake Map</div>
+  <div class="content">
+    <form action="/quake-map" method ="get" class="ui form">
+        <div class="field">
+            <label for="magnitude-treshold">Magnitude Threshold</label>
+            <input type="number" name="magnitude-threshold" id="magnitude-threshold">
+        </div>
+        <div class="field">
+            <label for="provinces">Province</label>
+            <select multiple="" class="ui dropdown" name="provinces">
+                <option value="Batangas">Batangas</option>
+                <option value="Cavite">Cavite</option>
+                <option value="Laguna">Laguna</option>
+            </select>
+        </div>
+    </form>
+  </div>
+</div>
  <script>
     let quakeMap = L.map('quake-map').setView([12.8797, 121.7740], 5.5);
 
@@ -12,7 +35,7 @@
         .addTo(quakeMap)
         .bindPopup('<b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
         .openPopup()
-        L.circle([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>], <%- (data[i].earthquake_details.strength * 1500) * 2 %>).addTo(quakeMap)
+        L.circle([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>], <%- (data[i].earthquake_details.strength * 1500) * 1.5 %>).addTo(quakeMap)
    <% } %>
      // L.circle([12.8797, 121.7740], <%- (10 * 1500) *2 %>).addTo(quakeMap);
  </script>
