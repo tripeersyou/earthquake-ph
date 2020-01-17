@@ -8,7 +8,7 @@ const db = mongojs(process.env.mongo_uri,['earthquakes']);
 
 Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode: 'extended', count: 100,  exclude_replies: true, include_rts: false},async function (error ,tweets, res){
     for(let index = 0; index < tweets.length; index++){
-        if (tweets[index].full_text.includes("EarthquakePH")){
+        if (tweets[index].full_text.includes("Earthquake Information")){
             let earthquakeDetails = {};
             earthquakeDetails.id_str =  tweets[index].id_str
             earthquakeDetails.full_text = tweets[index].full_text;
