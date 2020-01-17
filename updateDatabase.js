@@ -26,6 +26,7 @@ Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode
             earthquakeDetails.earthquake_details.strength = parseFloat(tweets[index].full_text.match(/Magnitude = \d{1,}.\d{1,}/g)[0].match(/\d{1,}.\d{1,}/g)[0]);
             earthquakeDetails.earthquake_details.depth = parseInt(tweets[index].full_text.match(/\d{3} kilometer/g)[0].split(' ')[0]);
             earthquakeDetails.tweeted_at = tweets[index].created_at
+            earthquake_details.happened_at = new Date(earthquakeDetails.earthquake_details.datetime.split('-')[0])
             db.earthquakes.find({id_str: earthquakeDetails.id_str}, async function(err, docs){
                     if (docs == 0){
                         geocoder.reverse({lat: earthquakeDetails.earthquake_details.lat, lon: earthquakeDetails.earthquake_details.lon}, async function(err, res){

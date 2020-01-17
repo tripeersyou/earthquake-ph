@@ -30,38 +30,78 @@ app.get('/', (request, response)=>{
             let page_size = parseInt(process.env.page_count)
             let offset = (parseInt(page) - 1) * page_size;
             db.earthquakes.find().sort({$natural: -1}).limit(page_size).skip(offset, function(err, docs){
-                response.render('index', {data: docs, route: request.originalUrl, page_limit: page_limit, page: page});    
+                response.render('index', {data: docs, route: '/', page_limit: page_limit, page: page});    
             })
         } else {
             let page_size = parseInt(process.env.page_count)
             db.earthquakes.find().sort({$natural :-1}).limit(page_size , function(err, docs){
-                response.render('index', {data: docs, route: request.originalUrl, page_limit: page_limit, page: 1});
+                response.render('index', {data: docs, route: '/', page_limit: page_limit, page: 1});
             })
         }
     });
 });
 
 app.get('/quake-map', (request, response) =>{
-    db.earthquakes.find().sort({$natural :-1}).limit(20 , function(err, docs){
-        response.render('quake-map', {data: docs, route: request.originalUrl});
-    })
+    db.earthquakes.distinct("province",{},function(err, docs){
+        if (request.query.daterange){
+            let filter = [];
+            let query = {}
+            if(request.query.daterange){
+                filter.push({"happened_at": {
+                    $gte: new Date(request.query.daterange.split('-')[0]),
+                    $lte: new Date(request.query.daterange.split('-')[0])
+                }});
+            }
+            if(request.query.earthquake_details.strength){
+                filter.push({ "earthquake_details.strength": { $lte: parseFloat(request.query.earthquake_details.strength)}})
+            }
+
+            if(request.query.earthquake_details.depth){
+                filter.push({ "earthquake_details.depth": { $lte: parseFloat(request.query.earthquake_details.depth)}})
+            }
+
+            if(request.query.provinces){
+                filter.push({ "province" : { $in: request.query.provinces } })
+            }
+
+            if (filter.length == 1){
+                query = filter[0];
+            } else {
+                query = {$and: []}
+                for(let i = 0; i < filter.length; i++ ){
+                    query.$and.push(filter[i]);
+                }
+            }
+
+            console.log(JSON.stringify(query));
+            db.earthquakes.find(query, function(error, quakes){
+                console.log(quakes);
+                response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
+            });
+        } else {
+            db.earthquakes.find().sort({$natural :-1}).limit(10 , function(error, quakes){
+                response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
+            });
+        }
+    });
 });
 
 app.get('/about', (request, response) =>{
-    response.render('about', {route: request.originalUrl});
+    response.render('about', {route: '/about'});
 });
 
 app.get('/quake/:id', (request, response)=>{
     db.earthquakes.findOne({id_str: request.params.id}, function(err,doc){
         if(doc){
             Twitter.get('statuses/oembed', {url: `https://twitter.com/phivolcs_dost/status/${doc.id_str}`, align: 'center', width: 550},(err, res, next)=>{
-                response.render('show',{earthquake: doc, maps_api: googleApiKey, tweet_embed: res.html, route: request.originalUrl});
+                response.render('show',{earthquake: doc, maps_api: googleApiKey, tweet_embed: res.html, route: '/quake/'});
             });
         } else {
             response.redirect('/');
         }
     })
 });
+
 
 app.get('*', (request, response)=>{
     response.render("404",{route: request.originalUrl});

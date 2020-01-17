@@ -9,39 +9,46 @@
   <div class="content">
     <form action="/quake-map" method ="get" class="ui form">
         <div class="field">
-            <label for="magnitude-treshold">Magnitude Threshold</label>
-            <input type="number" name="magnitude-threshold" id="magnitude-threshold">
+            <label for="daterange">Date Range</label>
+            <input type="text" name="daterange" id="daterange">
+        </div>
+        <div class="field">
+            <label for="earthquake_details[strength]">Magnitude Threshold</label>
+            <input type="number" name="earthquake_details[strength]" id="magnitudeThreshold"min="0" max="10" step="0.1">
+        </div>
+        <div class="field">
+            <label for="earthquake_details[depth]">Depth Threshold</label>
+            <input type="number" name="earthquake_details[depth]" id="depthThreshold" min= "0">
         </div>
         <div class="field">
             <label for="provinces">Province</label>
-            <select multiple="" class="ui dropdown" name="provinces">
-                <option value="Batangas">Batangas</option>
-                <option value="Cavite">Cavite</option>
-                <option value="Laguna">Laguna</option>
+            <select multiple class="ui dropdown" name="provinces[]">
+                <% provinces.forEach(function(p){ %>
+                    <option value="<%- p %>"><%- p %></option>
+                <% }); %>
             </select>
         </div>
-    </form>
   </div>
+  <div class="actions">
+    <button class="ui button positive">Submit</button>
+  </div>
+    </form>
 </div>
  <script>
     let quakeMap = L.map('quake-map').setView([12.8797, 121.7740], 5.5);
-
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(quakeMap);
 
-    <% for(let i = 0; i < data.length; i ++){ %>
-        L.marker([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>])
-        .addTo(quakeMap)
-        .bindPopup('<b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
-        .openPopup()
+    <% for(let i = 0; i < data.length; i++){ %>
+        L.marker([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>]).addTo(quakeMap).bindPopup('<b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><b>Depth:</b> <%-data[i].earthquake_details.depth %> km<br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
         L.circle([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>], <%- (data[i].earthquake_details.strength * 1500) * 1.5 %>).addTo(quakeMap)
    <% } %>
-     // L.circle([12.8797, 121.7740], <%- (10 * 1500) *2 %>).addTo(quakeMap);
  </script>
+
  <style>
  .ui.menu {
     margin-top: 0px;
-    z-index: 9999;
-}</style>
+    z-index: 9999;}
+</style>
 <%- include('layouts/footer') %>

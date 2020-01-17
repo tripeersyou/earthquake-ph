@@ -2,6 +2,6 @@ $(document).ready(function(){
     $('select.dropdown').dropdown();
     $('#customizeMap').click(function(){
         $('.ui.modal').modal('show');
-        console.log('Click');
-    })
+    });
+    $('input[name="daterange"]').daterangepicker();
 });
