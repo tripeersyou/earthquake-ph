@@ -49,7 +49,7 @@ app.get('/quake-map', (request, response) =>{
             if(request.query.daterange){
                 filter.push({"happened_at": {
                     $gte: new Date(request.query.daterange.split('-')[0]),
-                    $lte: new Date(request.query.daterange.split('-')[0])
+                    $lte: new Date(request.query.daterange.split('-')[1])
                 }});
             }
             if(request.query.earthquake_details.strength){
