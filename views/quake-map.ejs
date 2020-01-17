@@ -1,7 +1,7 @@
 <%- include('layouts/header') %>
  <div id="quake-map">
   <% if(filtered){ %>
-    <div class="leaflet-top leaflet-left">
+    <div class="leaflet-top leaflet-left" style="z-index:9999;">
         <div class="ui info message leaflet-control">
         <b class="header">
             Filtered Quake Map
@@ -13,7 +13,7 @@
     </div>
  <% } %>
     <div class="leaflet-top leaflet-right">
-        <button class="leaflet-control ui button primary" id="customizeMap">Customize Map</button>
+        <button class="leaflet-control ui button primary" id="customizeMap">Filter Earthquakes</button>
     </div>      
  </div>
  <div class="ui modal">
