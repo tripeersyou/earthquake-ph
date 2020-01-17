@@ -22,7 +22,7 @@
     <form action="/quake-map" method ="get" class="ui form">
         <div class="field">
             <label for="provinces">Provinces</label>
-            <select multiple class="ui dropdown" name="provinces[]">
+            <select multiple class="ui search selection dropdown" name="provinces[]">
                 <% provinces.forEach(function(p){ %>
                     <option value="<%- p %>"><%- p %></option>
                 <% }); %>
