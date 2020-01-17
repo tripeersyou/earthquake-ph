@@ -43,7 +43,7 @@ app.get('/', (request, response)=>{
 
 app.get('/quake-map', (request, response) =>{
     db.earthquakes.distinct("province",{},function(err, docs){
-        if (request.query.daterange){
+        if (Object.entries(request.query).length > 0){
             let filter = [];
             let query = {}
             if(request.query.daterange){
@@ -57,7 +57,7 @@ app.get('/quake-map', (request, response) =>{
             }
 
             if(request.query.earthquake_details.depth){
-                filter.push({ "earthquake_details.depth": { $lte: parseFloat(request.query.earthquake_details.depth)}})
+                filter.push({ "earthquake_details.depth": { $lte: parseInt(request.query.earthquake_details.depth)}})
             }
 
             if(request.query.provinces){

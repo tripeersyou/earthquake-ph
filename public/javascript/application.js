@@ -1,7 +1,10 @@
-$(document).ready(function(){
+$(document).ready(function () {
     $('select.dropdown').dropdown();
-    $('#customizeMap').click(function(){
+    $('#customizeMap').click(function () {
         $('.ui.modal').modal('show');
     });
-    $('input[name="daterange"]').daterangepicker();
+    $('input[name="daterange"]').daterangepicker({
+        showDropdowns: true
+    });
+    $('input[name="daterange"]').val('');
 });

@@ -1,5 +1,17 @@
 <%- include('layouts/header') %>
  <div id="quake-map">
+  <% if(filtered){ %>
+    <div class="leaflet-bottom leaflet-left">
+        <div class="ui info message leaflet-control">
+        <b class="header">
+            Filtered Quake Map
+        </b>
+        <ul class="list">
+            <li>Results: <%- data.length %> earthquakes found.</li>
+        </ul>
+        </div>
+    </div>
+ <% } %>
     <div class="leaflet-top leaflet-right">
         <button class="leaflet-control ui button primary" id="customizeMap">Customize Map</button>
     </div>      
@@ -9,16 +21,16 @@
   <div class="content">
     <form action="/quake-map" method ="get" class="ui form">
         <div class="field">
-            <label for="daterange">Date Range</label>
-            <input type="text" name="daterange" id="daterange">
-        </div>
-        <div class="field">
             <label for="earthquake_details[strength]">Magnitude Threshold</label>
             <input type="number" name="earthquake_details[strength]" id="magnitudeThreshold"min="0" max="10" step="0.1">
         </div>
         <div class="field">
             <label for="earthquake_details[depth]">Depth Threshold</label>
             <input type="number" name="earthquake_details[depth]" id="depthThreshold" min= "0">
+        </div>
+        <div class="field">
+            <label for="daterange">Date Range</label>
+            <input type="text" name="daterange" id="daterange">
         </div>
         <div class="field">
             <label for="provinces">Province</label>
