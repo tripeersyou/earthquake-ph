@@ -46,27 +46,27 @@ app.get('/quake-map', (request, response) =>{
         if (Object.entries(request.query).length > 0){
             let filter = [];
             let query = {}
-            if(request.query.daterange){
+            if(request.query.daterange && request.query.daterange != ''){
                 filter.push({"happened_at": {
                     $gte: new Date(request.query.daterange.split('-')[0]),
                     $lte: new Date(request.query.daterange.split('-')[1])
                 }});
             }
-            if(request.query.earthquake_details.strength){
+            if(request.query.earthquake_details.strength && request.query.earthquake_details.strength != ''){
                 filter.push({ "earthquake_details.strength": { $gte: parseFloat(request.query.earthquake_details.strength)}})
             }
 
-            if(request.query.earthquake_details.depth){
+            if(request.query.earthquake_details.depth && request.query.earthquake_details.depth != ''){
                 filter.push({ "earthquake_details.depth": { $gte: parseInt(request.query.earthquake_details.depth)}})
             }
 
-            if(request.query.provinces){
+            if(request.query.provinces && request.query.provinces != ''){
                 filter.push({ "province" : { $in: request.query.provinces } })
             }
 
             if (filter.length == 1){
                 query = filter[0];
-            } else {
+            } else if (filter.length > 1) {
                 query = {$and: []}
                 for(let i = 0; i < filter.length; i++ ){
                     query.$and.push(filter[i]);
