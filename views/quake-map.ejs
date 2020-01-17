@@ -53,7 +53,7 @@
     }).addTo(quakeMap);
 
     <% for(let i = 0; i < data.length; i++){ %>
-        L.marker([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>]).addTo(quakeMap).bindPopup('<b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><b>Depth:</b> <%-data[i].earthquake_details.depth %> km<br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
+        L.marker([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>]).addTo(quakeMap).bindPopup('<b>Province:</b> <%-data[i].province %><br><b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><b>Depth:</b> <%-data[i].earthquake_details.depth %> km<br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
         L.circle([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>], <%- (data[i].earthquake_details.strength * 1500) * 1.5 %>).addTo(quakeMap)
    <% } %>
  </script>

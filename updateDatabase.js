@@ -19,7 +19,7 @@ Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode
             earthquakeDetails.earthquake_details.datetime = tweets[index].full_text.match(/\d{2} \w{3} \d{4} - \d{2}:\d{2} \w{2}/g)[0];
             earthquakeDetails.earthquake_details.strength = parseFloat(tweets[index].full_text.match(/Magnitude = \d{1,}.\d{1,}/g)[0].match(/\d{1,}.\d{1,}/g)[0]);
             earthquakeDetails.earthquake_details.depth = parseInt(tweets[index].full_text.match(/\d{3} kilometer/g)[0].split(' ')[0]);
-            earthquakeDetails.tweeted_at = tweets[index].created_at
+            earthquakeDetails.tweeted_at = new Date(tweets[index].created_at);
             earthquakeDetails.province = tweets[index].full_text.match(/(?<=\()[^\)]+/)[0];
             earthquakeDetails.happened_at = new Date(earthquakeDetails.earthquake_details.datetime.split('-')[0])
             db.earthquakes.find({id_str: earthquakeDetails.id_str}, async function(err, docs){

@@ -29,12 +29,12 @@ app.get('/', (request, response)=>{
         if (page){
             let page_size = parseInt(process.env.page_count)
             let offset = (parseInt(page) - 1) * page_size;
-            db.earthquakes.find().sort({$natural: -1}).limit(page_size).skip(offset, function(err, docs){
+            db.earthquakes.find().sort({tweeted_at: -1}).limit(page_size).skip(offset, function(err, docs){
                 response.render('index', {data: docs, route: '/', page_limit: page_limit, page: page});    
             })
         } else {
             let page_size = parseInt(process.env.page_count)
-            db.earthquakes.find().sort({$natural :-1}).limit(page_size , function(err, docs){
+            db.earthquakes.find().sort({tweeted_at : -1}).limit(page_size , function(err, docs){
                 response.render('index', {data: docs, route: '/', page_limit: page_limit, page: 1});
             })
         }
@@ -79,7 +79,7 @@ app.get('/quake-map', (request, response) =>{
                 response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
             });
         } else {
-            db.earthquakes.find().sort({$natural :-1}).limit(10 , function(error, quakes){
+            db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
                 response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
             });
         }
