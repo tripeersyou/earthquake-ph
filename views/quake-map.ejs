@@ -21,24 +21,24 @@
   <div class="content">
     <form action="/quake-map" method ="get" class="ui form">
         <div class="field">
-            <label for="earthquake_details[strength]">Minimum Magnitude</label>
-            <input type="number" name="earthquake_details[strength]" id="magnitudeThreshold"min="0" max="10" step="0.1">
-        </div>
-        <div class="field">
-            <label for="earthquake_details[depth]">Minimum Depth</label>
-            <input type="number" name="earthquake_details[depth]" id="depthThreshold" min= "0">
+            <label for="provinces">Provinces</label>
+            <select multiple class="ui dropdown" name="provinces[]">
+                <% provinces.forEach(function(p){ %>
+                    <option value="<%- p %>"><%- p %></option>
+                <% }); %>
+            </select>
         </div>
         <div class="field">
             <label for="daterange">Date Range</label>
             <input type="text" name="daterange" id="daterange">
         </div>
         <div class="field">
-            <label for="provinces">Province</label>
-            <select multiple class="ui dropdown" name="provinces[]">
-                <% provinces.forEach(function(p){ %>
-                    <option value="<%- p %>"><%- p %></option>
-                <% }); %>
-            </select>
+            <label for="earthquake_details[strength]">Minimum Magnitude</label>
+            <input type="number" name="earthquake_details[strength]" id="magnitudeThreshold"min="0" max="10" step="0.1">
+        </div>
+        <div class="field">
+            <label for="earthquake_details[depth]">Minimum Depth</label>
+            <input type="number" name="earthquake_details[depth]" id="depthThreshold" min= "0">
         </div>
   </div>
   <div class="actions">
