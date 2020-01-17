@@ -53,11 +53,11 @@ app.get('/quake-map', (request, response) =>{
                 }});
             }
             if(request.query.earthquake_details.strength){
-                filter.push({ "earthquake_details.strength": { $lte: parseFloat(request.query.earthquake_details.strength)}})
+                filter.push({ "earthquake_details.strength": { $gte: parseFloat(request.query.earthquake_details.strength)}})
             }
 
             if(request.query.earthquake_details.depth){
-                filter.push({ "earthquake_details.depth": { $lte: parseInt(request.query.earthquake_details.depth)}})
+                filter.push({ "earthquake_details.depth": { $gte: parseInt(request.query.earthquake_details.depth)}})
             }
 
             if(request.query.provinces){
