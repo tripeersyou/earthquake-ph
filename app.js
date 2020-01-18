@@ -72,7 +72,7 @@ app.get('/quake-map', (request, response) =>{
                     query.$and.push(filter[i]);
                 }
             }
-            if(Object.entries(request.query).length === 1 && request.entry.fbclid){
+            if(Object.entries(request.query).length === 1 && request.query.fbclid){
                 db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
                     response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
                 });
