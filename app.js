@@ -52,11 +52,11 @@ app.get('/quake-map', (request, response) =>{
                     $lte: new Date(request.query.daterange.split('-')[1])
                 }});
             }
-            if(request.query.earthquake_details.strength && request.query.earthquake_details.strength != ''){
+            if(request.query.earthquake_details != undefined && request.query.earthquake_details.strength != ''){
                 filter.push({ "earthquake_details.strength": { $gte: parseFloat(request.query.earthquake_details.strength)}})
             }
 
-            if(request.query.earthquake_details.depth && request.query.earthquake_details.depth != ''){
+            if(request.query.earthquake_details != undefined && request.query.earthquake_details.depth != ''){
                 filter.push({ "earthquake_details.depth": { $gte: parseInt(request.query.earthquake_details.depth)}})
             }
 
@@ -73,7 +73,11 @@ app.get('/quake-map', (request, response) =>{
                 }
             }
             db.earthquakes.find(query, function(error, quakes){
-                response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
+                if(quakes){
+                    response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
+                } else {
+                    response.redirect('/quake-map');
+                }
             });
         } else {
             db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
