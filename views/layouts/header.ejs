@@ -33,15 +33,21 @@
    <% if(route == '/'){ %>
       <title>Earthquake PH | Home</title>
       <meta property="og:title" content="Earthquake PH | Home" />
+      <meta property="og:url" content="https://earthquakeph.francisoliver.dev/" />
    <%} else if (route == '/quake-map') { %>
       <title>Earthquake PH | Quake Map</title>
       <meta property="og:title" content="Earthquake PH | Quake Map" />
+      <meta property="og:url" content="https://earthquakeph.francisoliver.dev/quake-map" />
    <%} else if (route == '/about') { %>
       <title>Earthquake PH | About</title>
       <meta property="og:title" content="Earthquake PH | About" />
+      <meta property="og:url" content="https://earthquakeph.francisoliver.dev/about" />
    <% } else if (route.includes('/quake/')){ %>
       <title>Earthquake PH | Detail</title>
       <meta property="og:title" content="Earthquake PH | Detail" />
+      <% if (earthquake){%>
+         <meta property="og:url" content="https://earthquakeph.francisoliver.dev/quake/<%- earthquake.id_str %>" />
+      <% } %>
    <% } else { %>
       <title>Earthquake PH</title>
       <meta property="og:title" content="Earthquake PH" />
@@ -52,7 +58,6 @@
    <meta property="og:locale" content="en_US" />
    <meta name="description" content="Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account." />
    <meta property="og:description" content="Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account." />
-   <meta property="og:url" content="https://earthquakeph.francisoliver.dev/" />
    <meta property="og:site_name" content="Earthquake PH" />
    <meta name="twitter:card" content="summary" />
    <meta property="twitter:title" content="Earthquake PH" />

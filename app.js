@@ -72,10 +72,7 @@ app.get('/quake-map', (request, response) =>{
                     query.$and.push(filter[i]);
                 }
             }
-
-            console.log(JSON.stringify(query));
             db.earthquakes.find(query, function(error, quakes){
-                console.log(quakes);
                 response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
             });
         } else {
