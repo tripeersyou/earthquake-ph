@@ -72,13 +72,15 @@ app.get('/quake-map', (request, response) =>{
                     query.$and.push(filter[i]);
                 }
             }
-            db.earthquakes.find(query, function(error, quakes){
-                if(quakes){
+            if(Object.entries(request.query).length === 1 && request.entry.fbclid){
+                db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
+                    response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
+                });
+            } else {
+                db.earthquakes.find(query, function(error, quakes){
                     response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
-                } else {
-                    response.redirect('/quake-map');
-                }
-            });
+                });
+            }
         } else {
             db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
                 response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
