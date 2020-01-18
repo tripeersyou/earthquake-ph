@@ -30,7 +30,6 @@
    <link rel="preload" as="style" href="https://francisoliver.dev/assets/css/application.css">
    <link rel="preload" as="style" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css">
    <link rel="preload" as="style" href="/css/application.css">
-   <meta property="og:title" content="Earthquake PH" />
    <meta property="og:locale" content="en_US" />
    <meta name="description" content="Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account." />
    <meta property="og:description" content="Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account." />
@@ -49,12 +48,17 @@
     <![endif]-->
    <% if(route == '/'){ %>
    <title>Earthquake PH | Home</title>
+   <meta property="og:title" content="Earthquake PH | Home" />
    <%} else if (route == '/quake-map') { %>
    <title>Earthquake PH | Quake Map</title>
+   <meta property="og:title" content="Earthquake PH | Quake Map" />
    <%} else if (route == '/about') { %>
    <title>Earthquake PH | About</title>
+   <meta property="og:title" content="Earthquake PH | About" />
    <% } else if (route.includes('/quake/')){ %>
    <title>Earthquake PH | Detail</title>
+   <meta property="og:title" content="Earthquake PH | Detail" />
+
    <% } else { %>
    <title>Earthquake PH</title>
    <% } %>
