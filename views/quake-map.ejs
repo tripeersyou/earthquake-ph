@@ -68,24 +68,23 @@
         markers.addLayer(quakeMarker);
         
    <% } %>
-   quakeMap.addLayer(markers);
-    const greenIcon = new L.Icon({
-        iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-        shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-        iconSize: [25, 41],
-        iconAnchor: [12, 41],
-        popupAnchor: [1, -34],
-        shadowSize: [41, 41]
-    });
+    quakeMap.addLayer(markers);
+    // const greenIcon = new L.Icon({
+        // // iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+        // // shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+        // iconSize: [25, 41],
+        // iconAnchor: [12, 41],
+        // popupAnchor: [1, -34],
+        // shadowSize: [41, 41]
+    // });
     if ("geolocation" in navigator) {
         let currentPositionMarker = '';
         navigator.geolocation.watchPosition(function(position) {
             if (currentPositionMarker != ''){
                 quakeMap.removeLayer(currentPositionMarker);
             }
-            currentPositionMarker = L.marker([position.coords.latitude, position.coords.longitude],{icon: greenIcon}).addTo(quakeMap)
+            currentPositionMarker = L.circleMarker([position.coords.latitude, position.coords.longitude],{fillOpacity: 0.5, weight: 1}).addTo(quakeMap)
                 .bindPopup("Your current location")
-                .openPopup();
         });
     } else {
         console.log("Geolocation is not available for this device");
