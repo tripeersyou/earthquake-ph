@@ -51,11 +51,24 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(quakeMap);
-
+    let markers = L.markerClusterGroup();
     <% for(let i = 0; i < data.length; i++){ %>
-        L.marker([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>]).addTo(quakeMap).bindPopup('<b>Province:</b> <%-data[i].province %><br><b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><b>Depth:</b> <%-data[i].earthquake_details.depth %> km<br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
-        L.circle([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>], <%- (data[i].earthquake_details.strength * 1500) * 1.5 %>).addTo(quakeMap)
+        var quakeMarker = L.marker([
+            <%- data[i].earthquake_details.lat %>, 
+            <%- data[i].earthquake_details.lon %>
+            ]);
+        var circle_<%- data[i].id_str %>;
+        quakeMarker.bindPopup('<b>Province:</b> <%-data[i].province %><br><b>Strength:</b> Magnitude <%- data[i].earthquake_details.strength %><br><b>Date and Time:</b> <%-data[i].earthquake_details.datetime %><br><b>Depth:</b> <%-data[i].earthquake_details.depth %> km<br><a href="/quake/<%-data[i].id_str%>" >Details</a>')
+        quakeMarker.on("mouseover", function(){
+            circle_<%- data[i].id_str %> = L.circle([<%- data[i].earthquake_details.lat %>, <%- data[i].earthquake_details.lon %>], <%- (data[i].earthquake_details.strength * 1500) * 1.5 %>).addTo(quakeMap)
+        });
+        quakeMarker.on("mouseout", function(){
+           quakeMap.removeLayer(circle_<%- data[i].id_str %>);
+        });
+        markers.addLayer(quakeMarker);
+        
    <% } %>
+   quakeMap.addLayer(markers);
     const greenIcon = new L.Icon({
         iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
         shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
