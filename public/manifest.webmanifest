@@ -13,11 +13,11 @@
     "generated" : "true",
     "icons" : [
         {
-            "src": "https://earthquakeph.francisoliver.dev/favicon.ico",
+            "src": "https://earthquakeph.francisoliver.dev/favicon.png",
             "sizes": "512x512"
         },
         {
-            "src": "https://earthquakeph.francisoliver.dev/favicon.ico",
+            "src": "https://earthquakeph.francisoliver.dev/favicon.png",
             "sizes": "192x192"
         }
     ]

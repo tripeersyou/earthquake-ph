@@ -3,7 +3,8 @@
 }
 
 .ui.container {
-    min-height: 86vh !important;
+    /* min-height: 86vh !important; */
+    margin-bottom: 50px
 }
 
 .ui.menu {
@@ -11,6 +12,12 @@
     z-index: 9999;
 }
 
+.ui.fixed.bottom.menu {
+    margin-top: 10px;
+    z-index: 9999;
+}
+
 iframe{
     z-index: 0 !important;
 }
+
