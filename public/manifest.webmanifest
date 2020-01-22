@@ -1,0 +1,24 @@
+{"dir" : "ltr",
+    "lang" : "en",
+    "name" : "Earthquake PH",
+    "scope" : "/",
+    "display" : "standalone",
+    "start_url" : "https://earthquakeph.francisoliver.dev",
+    "short_name" : "Earthquake PH",
+    "description" : "Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account.",
+    "orientation" : "any",
+    "background_color" : "white",
+    "theme_color": "white",
+    "prefer_related_applications" : false,
+    "generated" : "true",
+    "icons" : [
+        {
+            "src": "https://earthquakeph.francisoliver.dev/favicon.ico",
+            "sizes": "512x512"
+        },
+        {
+            "src": "https://earthquakeph.francisoliver.dev/favicon.ico",
+            "sizes": "192x192"
+        }
+    ]
+}
