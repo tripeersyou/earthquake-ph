@@ -1,7 +1,10 @@
 <%- include('layouts/header') %>
  <div id="quake-map">
-  <% if(filtered){ %>
-    <div class="leaflet-bottom leaflet-left">
+    <div class="leaflet-top leaflet-right">
+        <button class="leaflet-control ui button primary" id="customizeMap">Filter Earthquakes</button>
+    </div>
+    <% if(filtered){ %>
+    <div class="leaflet-top leaflet-left">
         <div class="ui info message leaflet-control">
         <b class="header">
             Filtered Quake Map
@@ -11,10 +14,7 @@
         </ul>
         </div>
     </div>
- <% } %>
-    <div class="leaflet-top leaflet-right">
-        <button class="leaflet-control ui button primary" id="customizeMap">Filter Earthquakes</button>
-    </div>      
+    <% } %>
  </div>
  <div class="ui modal">
   <div class="header">Customize Quake Map</div>
@@ -47,10 +47,12 @@
     </form>
 </div>
  <script>
-    let quakeMap = L.map('quake-map').setView([12.8797, 121.7740], 5.5);
+    let quakeMap = L.map('quake-map',{zoomControl: false}).setView([12.8797, 121.7740], 5.5);
     let accessToken ='pk.eyJ1IjoiZm9hdmFuY2VuYSIsImEiOiJjazVub3k4bnAwOXVrM2xtZ2FvbmVvcW81In0.GqIGwkG8lgbF_3Q9hXhBng';
-    L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token=' + accessToken, {
-        attribution: '© <a href="https://www.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}{r}.png', {
+	    attribution: '<a href="https://wikimediafoundation.org/wiki/Maps_Terms_of_Use">Wikimedia</a>',
+	    minZoom: 1,
+	    maxZoom: 19
     }).addTo(quakeMap);
     let markers = L.markerClusterGroup();
     <% for(let i = 0; i < data.length; i++){ %>
