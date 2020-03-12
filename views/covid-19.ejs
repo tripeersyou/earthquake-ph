@@ -9,9 +9,11 @@
     	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(quakeMap);
     let markers = L.markerClusterGroup();
+    let date = new Date();
+    let yesterday = `${date.getMonth()}-${date.getDay()-1}-${date.getFullYear()}`
     $.ajax({
         dataType: "text",
-        url:"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-11-2020.csv",
+        url:`https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/${yesterday}.csv`,
         success: function(data){ 
             console.log(data);
             let json = $.csv.toObjects(data);
