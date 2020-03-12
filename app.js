@@ -91,7 +91,18 @@ app.get('/quake-map', (request, response) =>{
 
 app.get('/covid-19', (request, response)=>{
     let date = new Date();
-    let yesterday = `${date.getMonth()}-${parseInt(date.getDay())-1}-${date.getFullYear()}`
+    let month, day
+    if(date.getMonth() + 1 < 10){
+        month =  "0" + (parseInt(date.getMonth()) + 1) 
+    } else {
+        month = parseInt(date.getMonth()) + 1
+    }
+    if (date.getDate()-1 < 10){
+        day = "0" + (parseInt(date.getDate()) - 1)
+    } else {
+        day = parseInt(date.getDate()) - 1
+    }
+    let yesterday = `${month}-${day}-${date.getFullYear()}`
     response.render('covid-19', {route: '/covid-19', filtered: false, datate: yesterday})
 })
 app.get('/about', (request, response) =>{
