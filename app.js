@@ -103,7 +103,7 @@ app.get('/covid-19', (request, response)=>{
         day = parseInt(date.getDate()) - 1
     }
     let yesterday = `${month}-${day}-${date.getFullYear()}`
-    response.render('covid-19', {route: '/covid-19', filtered: false, datate: yesterday})
+    response.render('covid-19', {route: '/covid-19', filtered: false, dataDate: yesterday})
 })
 app.get('/about', (request, response) =>{
     response.render('about', {route: '/about'});
