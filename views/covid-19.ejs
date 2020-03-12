@@ -1,0 +1,45 @@
+<%- include('layouts/header') %>
+ <div id="quake-map">
+ </div>
+
+ <script>
+    let quakeMap = L.map('quake-map',{zoomControl: false}).setView([12.8797, 121.7740], 5.5);
+    let accessToken ='pk.eyJ1IjoiZm9hdmFuY2VuYSIsImEiOiJjazVub3k4bnAwOXVrM2xtZ2FvbmVvcW81In0.GqIGwkG8lgbF_3Q9hXhBng';
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(quakeMap);
+    let markers = L.markerClusterGroup();
+    $.ajax({
+        dataType: "text",
+        url:"https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/03-11-2020.csv",
+        success: function(data){ 
+            console.log(data);
+            let json = $.csv.toObjects(data);
+            for(let i = 0; i < json.length; i++){
+                let quakeMarker = L.marker([json[i].Latitude, json[i].Longitude])
+                quakeMarker.bindPopup(`<b>${json[i]["Country/Region"]} ${json[i]["Province/State"]}</b><br><br><b>Infected:</b> ${json[i].Confirmed}<br><b>Deaths:</b> ${json[i].Deaths}<br><b>Recovered:</b> ${json[i].Recovered}`)
+                markers.addLayer(quakeMarker);
+            }
+            quakeMap.addLayer(markers);
+        }
+    });    
+    if ("geolocation" in navigator) {
+        let currentPositionMarker = '';
+        navigator.geolocation.watchPosition(function(position) {
+            if (currentPositionMarker != ''){
+                quakeMap.removeLayer(currentPositionMarker);
+            }
+            currentPositionMarker = L.circleMarker([position.coords.latitude, position.coords.longitude],{fillOpacity: 0.5, weight: 1}).addTo(quakeMap)
+                .bindPopup("Your current location")
+        });
+    } else {
+        console.log("Geolocation is not available for this device");
+    }
+ </script>
+
+ <style>
+ .ui.menu {
+    margin-top: 0px;
+    z-index: 9999;}
+</style>
+<%- include('layouts/footer') %>

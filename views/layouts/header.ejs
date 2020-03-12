@@ -98,6 +98,7 @@
    <%- include('menu') %>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.8/jquery.csv.js" integrity="sha256-TtoEQBr6hfutE/4YHCeQ5y2Ufa6yC62YDipUdFRcRec=" crossorigin="anonymous"></script>
    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" ></script>
    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/3.0.5/daterangepicker.min.js"></script>
    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
@@ -106,6 +107,7 @@
    <script src='https://api.mapbox.com/mapbox.js/v3.2.1/mapbox.js'></script>
    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
    <script src="/javascript/application.js"></script>
-   <%if(route != '/quake-map') { %>
-   <div class="ui container">
-      <% } %>
+   <%if(route == '/covid-19') { %>
+    <% }  else if ( route != '/quake-map' ) { %>
+        <div class="ui container">
+    <% }%>
