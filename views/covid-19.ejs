@@ -17,11 +17,20 @@
             console.log(data);
             let json = $.csv.toObjects(data);
             for(let i = 0; i < json.length; i++){
-                let quakeMarker = L.marker([json[i].Latitude, json[i].Longitude])
+                let quakeMarker
+                if(parseInt(json[i].Confirmed) < 10){
+                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#00ff00' })
+                } else if (parseInt(json[i].Confirmed) < 100){
+                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#ffff00'})
+                } else if (parseInt(json[i].Confirmed) < 1000) {
+                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#ff0000'})
+                } else if (parseInt(json[i].Confirmed) > 1000) {
+                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#00000'})
+                }
+                
                 quakeMarker.bindPopup(`<b>${json[i]["Country/Region"]} ${json[i]["Province/State"]}</b><br><br><b>Infected:</b> ${json[i].Confirmed}<br><b>Deaths:</b> ${json[i].Deaths}<br><b>Recovered:</b> ${json[i].Recovered}`)
-                markers.addLayer(quakeMarker);
+                quakeMarker.addTo(quakeMap)
             }
-            quakeMap.addLayer(markers);
         }
     });    
     if ("geolocation" in navigator) {
