@@ -8,7 +8,6 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(quakeMap);
-    let markers = L.markerClusterGroup();
     
     $.ajax({
         dataType: "text",
@@ -19,13 +18,13 @@
             for(let i = 0; i < json.length; i++){
                 let quakeMarker
                 if(parseInt(json[i].Confirmed) < 10){
-                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#00ff00' })
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#00ff00' })
                 } else if (parseInt(json[i].Confirmed) < 100){
-                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#ffff00'})
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#ffff00'})
                 } else if (parseInt(json[i].Confirmed) < 1000) {
-                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#ff0000'})
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#ff0000'})
                 } else if (parseInt(json[i].Confirmed) > 1000) {
-                    quakeMarker = L.circle([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {radius: 100000, color: '#00000'})
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#00000'})
                 }
                 
                 quakeMarker.bindPopup(`<b>${json[i]["Country/Region"]} ${json[i]["Province/State"]}</b><br><br><b>Infected:</b> ${json[i].Confirmed}<br><b>Deaths:</b> ${json[i].Deaths}<br><b>Recovered:</b> ${json[i].Recovered}`)
