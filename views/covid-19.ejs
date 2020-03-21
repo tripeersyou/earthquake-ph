@@ -17,13 +17,13 @@
             let json = $.csv.toObjects(data);
             for(let i = 0; i < json.length; i++){
                 let quakeMarker
-                if(parseInt(json[i].Confirmed) < 10){
+                if(parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) < 10){
                     quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#00ff00' })
-                } else if (parseInt(json[i].Confirmed) < 100){
+                } else if (parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) < 100){
                     quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#ffff00'})
-                } else if (parseInt(json[i].Confirmed) < 1000) {
+                } else if (parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) < 1000) {
                     quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#ff0000'})
-                } else if (parseInt(json[i].Confirmed) > 1000) {
+                } else if (parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) > 1000) {
                     quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#00000'})
                 }
                 
