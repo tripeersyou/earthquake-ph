@@ -13,22 +13,31 @@
         dataType: "text",
         url:`https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/<%=dataDate%>.csv`,
         success: function(data){ 
-            console.log(data);
             let json = $.csv.toObjects(data);
+            console.log(json)
             for(let i = 0; i < json.length; i++){
                 let quakeMarker
                 if(parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) < 10){
-                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#00ff00' })
+                    if(json[i].Lat != "" && json[i].Long_ != ""){
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Lat), parseFloat(json[i].Long_)], {color: '#00ff00' })
+                    }
                 } else if (parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) < 100){
-                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#ffff00'})
+                    if(json[i].Lat != "" && json[i].Long_ != ""){
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Lat), parseFloat(json[i].Long_)], {color: '#ffff00'})
+                    }
                 } else if (parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) < 1000) {
-                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#ff0000'})
+                    if(json[i].Lat != "" && json[i].Long_ != ""){
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Lat), parseFloat(json[i].Long_)], {color: '#ff0000'})
+                    }
                 } else if (parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) > 1000) {
-                    quakeMarker = L.circleMarker([parseFloat(json[i].Latitude), parseFloat(json[i].Longitude)], {color: '#00000'})
+                    if(json[i].Lat != "" && json[i].Long_ != ""){
+                    quakeMarker = L.circleMarker([parseFloat(json[i].Lat), parseFloat(json[i].Long_)], {color: '#00000'})
+                    }
                 }
-                
-                quakeMarker.bindPopup(`<b>${json[i]["Country/Region"]} ${json[i]["Province/State"]}</b><br><br><b>Infected:</b> ${json[i].Confirmed}<br><b>Deaths:</b> ${json[i].Deaths}<br><b>Recovered:</b> ${json[i].Recovered}`)
-                quakeMarker.addTo(quakeMap)
+                 if(json[i].Lat != "" && json[i].Long_ != ""){
+                    quakeMarker.bindPopup(`<b>${json[i]["Country_Region"]} ${json[i]["Province_State"]} ${json[i]["Admin2"]}</b><br><br><b>Infected:</b> ${json[i].Confirmed}<br><b>Deaths:</b> ${json[i].Deaths}<br><b>Recovered:</b> ${json[i].Recovered}`)
+                    quakeMarker.addTo(quakeMap)
+                 }
             }
         }
     });    
@@ -38,7 +47,7 @@
             if (currentPositionMarker != ''){
                 quakeMap.removeLayer(currentPositionMarker);
             }
-            currentPositionMarker = L.circleMarker([position.coords.latitude, position.coords.longitude],{fillOpacity: 0.5, weight: 1}).addTo(quakeMap)
+            currentPositionMarker = L.circleMarker([position.coords.Lat, position.coords.Long_],{fillOpacity: 0.5, weight: 1}).addTo(quakeMap)
                 .bindPopup("Your current location")
         });
     } else {
