@@ -8,14 +8,14 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(quakeMap);
-    
+    let markers = L.markerClusterGroup();
     $.ajax({
         dataType: "text",
         url:`https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/<%=dataDate%>.csv`,
         success: function(data){ 
             let json = $.csv.toObjects(data);
             console.log(json)
-            for(let i = 0; i < json.length; i++){
+            for (let i = 0; i < json.length; i++){
                 let quakeMarker
                 if(parseInt(json[i].Confirmed) - parseInt(json[i].Recovered) < 10){
                     if(json[i].Lat != "" && json[i].Long_ != ""){
@@ -36,9 +36,11 @@
                 }
                  if(json[i].Lat != "" && json[i].Long_ != ""){
                     quakeMarker.bindPopup(`<b>${json[i]["Country_Region"]} ${json[i]["Province_State"]} ${json[i]["Admin2"]}</b><br><br><b>Infected:</b> ${json[i].Confirmed}<br><b>Deaths:</b> ${json[i].Deaths}<br><b>Recovered:</b> ${json[i].Recovered}`)
-                    quakeMarker.addTo(quakeMap)
+                    markers.addLayer(quakeMarker);
+                    quakeMap.addLayer(markers);
                  }
             }
+            
         }
     });    
     if ("geolocation" in navigator) {
