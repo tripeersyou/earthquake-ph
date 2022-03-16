@@ -31,13 +31,13 @@ app.get('/', (request, response)=>{
         if (page){
             let page_size = parseInt(process.env.page_count)
             let offset = (parseInt(page) - 1) * page_size;
-            db.earthquakes.find().sort({tweeted_at: -1}).limit(page_size).skip(offset, function(err, docs){
+            db.earthquakes.find().sort({happened_at: -1}).limit(page_size).skip(offset, function(err, docs){
                 // response.json(docs)
                 response.render('index', {data: docs, route: '/', page_limit: page_limit, page: page});    
             })
         } else {
             let page_size = parseInt(process.env.page_count)
-            db.earthquakes.find().sort({tweeted_at : -1}).limit(page_size , function(err, docs){
+            db.earthquakes.find().sort({happened_at : -1}).limit(page_size , function(err, docs){
                 // response.json(docs)
                 response.render('index', {data: docs, route: '/', page_limit: page_limit, page: 1});
             })
@@ -77,7 +77,7 @@ app.get('/quake-map', (request, response) =>{
                 }
             }
             if(Object.entries(request.query).length === 1 && request.query.fbclid){
-                db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
+                db.earthquakes.find().sort({happened_at :-1}).limit(10 , function(error, quakes){
                     // response.json(quakes)
                     response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
                 });
@@ -88,7 +88,7 @@ app.get('/quake-map', (request, response) =>{
                 });
             }
         } else {
-            db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
+            db.earthquakes.find().sort({happened_at :-1}).limit(10 , function(error, quakes){
                 // response.json(quakes)
                 response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
             });
