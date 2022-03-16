@@ -38,7 +38,7 @@ app.get('/', (request, response)=>{
         } else {
             let page_size = parseInt(process.env.page_count)
             db.earthquakes.find().sort({tweeted_at : -1}).limit(page_size , function(err, docs){
-                response.json(docs)
+                // response.json(docs)
                 response.render('index', {data: docs, route: '/', page_limit: page_limit, page: 1});
             })
         }
