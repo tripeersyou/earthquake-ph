@@ -32,14 +32,14 @@ app.get('/', (request, response)=>{
             let page_size = parseInt(process.env.page_count)
             let offset = (parseInt(page) - 1) * page_size;
             db.earthquakes.find().sort({tweeted_at: -1}).limit(page_size).skip(offset, function(err, docs){
-                response.json(docs)
-                // response.render('index', {data: docs, route: '/', page_limit: page_limit, page: page});    
+                // response.json(docs)
+                response.render('index', {data: docs, route: '/', page_limit: page_limit, page: page});    
             })
         } else {
             let page_size = parseInt(process.env.page_count)
             db.earthquakes.find().sort({tweeted_at : -1}).limit(page_size , function(err, docs){
                 response.json(docs)
-                // response.render('index', {data: docs, route: '/', page_limit: page_limit, page: 1});
+                response.render('index', {data: docs, route: '/', page_limit: page_limit, page: 1});
             })
         }
     });
@@ -78,40 +78,24 @@ app.get('/quake-map', (request, response) =>{
             }
             if(Object.entries(request.query).length === 1 && request.query.fbclid){
                 db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
-                    response.json(quakes)
-                    // response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
+                    // response.json(quakes)
+                    response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
                 });
             } else {
                 db.earthquakes.find(query, function(error, quakes){
-                    response.json(quakes)
-                    // response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
+                    // response.json(quakes)
+                    response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: true});
                 });
             }
         } else {
             db.earthquakes.find().sort({tweeted_at :-1}).limit(10 , function(error, quakes){
-                response.json(quakes)
-                // response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
+                // response.json(quakes)
+                response.render('quake-map', {provinces: docs, route:'/quake-map', data: quakes, filtered: false});
             });
         }
     });
 });
 
-app.get('/covid-19', (request, response)=>{
-    let date = new Date();
-    let month, day
-    if(date.getMonth() + 1 < 10){
-        month =  "0" + (parseInt(date.getMonth()) + 1) 
-    } else {
-        month = parseInt(date.getMonth()) + 1
-    }
-    if (date.getDate()-1 < 10){
-        day = "0" + (parseInt(date.getDate()) - 1)
-    } else {
-        day = parseInt(date.getDate()) - 1
-    }
-    let yesterday = `${month}-${day}-${date.getFullYear()}`
-    response.render('covid-19', {route: '/covid-19', filtered: false, dataDate: yesterday})
-})
 app.get('/about', (request, response) =>{
     response.render('about', {route: '/about'});
 });
