@@ -6,7 +6,7 @@ const mongojs = require('mongojs')
 const db = mongojs(process.env.mongo_uri,['earthquakes']);
 
 
-Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode: 'extended', count: 1000,  exclude_replies: true, include_rts: false}, async function (error ,tweets, res){
+Twitter.get('statuses/user_timeline',{ screen_name: 'phivolcs_dost',  tweet_mode: 'extended', count: 100,  exclude_replies: true, include_rts: false}, async function (error ,tweets, res){
     for(let index = 0; index < tweets.length; index++){
         if (tweets[index].full_text.includes("Earthquake Information")){
             // console.log(tweets[index].full_text);
