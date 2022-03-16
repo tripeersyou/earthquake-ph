@@ -104,8 +104,8 @@ app.get('/quake/:id', (request, response)=>{
     db.earthquakes.findOne({id_str: request.params.id}, function(err,doc){
         if(doc){
             Twitter.get('statuses/oembed', {url: `https://twitter.com/phivolcs_dost/status/${doc.id_str}`, align: 'center', width: 550},(err, res, next)=>{
-            response.json(doc)    
-            // response.render('show',{earthquake: doc, maps_api: googleApiKey, tweet_embed: res.html, route: '/quake/'});
+            // response.json(doc)    
+            response.render('show',{earthquake: doc, maps_api: googleApiKey, tweet_embed: res.html, route: '/quake/'});
             });
         } else {
             response.redirect('/');
