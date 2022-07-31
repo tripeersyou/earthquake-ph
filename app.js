@@ -47,6 +47,7 @@ app.get('/', (request, response)=>{
 
 app.get('/quake-map', (request, response) =>{
     db.earthquakes.distinct("province",{},function(err, docs){
+        docs = docs.sort();
         if (Object.entries(request.query).length > 0){
             let filter = [];
             let query = {}

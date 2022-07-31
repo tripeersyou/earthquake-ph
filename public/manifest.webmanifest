@@ -3,7 +3,7 @@
     "name" : "Earthquake PH",
     "scope" : "/",
     "display" : "standalone",
-    "start_url" : "https://earthquakeph.francisoliver.dev",
+    "start_url" : "https://earthquake-ph.herokuapp.com",
     "short_name" : "Earthquake PH",
     "description" : "Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account.",
     "orientation" : "any",
@@ -13,11 +13,11 @@
     "generated" : "true",
     "icons" : [
         {
-            "src": "https://earthquakeph.francisoliver.dev/favicon.png",
+            "src": "https://earthquake-ph.herokuapp.com/favicon.png",
             "sizes": "512x512"
         },
         {
-            "src": "https://earthquakeph.francisoliver.dev/favicon.png",
+            "src": "https://earthquake-ph.herokuapp.com/favicon.png",
             "sizes": "192x192"
         }
     ]

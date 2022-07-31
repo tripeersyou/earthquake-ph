@@ -41,27 +41,27 @@
    <% if(route == '/'){ %>
       <title>Earthquake PH | Home</title>
       <meta property="og:title" content="Earthquake PH | Home" />
-      <meta property="og:url" content="https://earthquakeph.francisoliver.dev/" />
+      <meta property="og:url" content="https://earthquake-ph.herokuapp.com/" />
    <%} else if (route == '/quake-map') { %>
       <title>Earthquake PH | Quake Map</title>
       <meta property="og:title" content="Earthquake PH | Quake Map" />
-      <meta property="og:url" content="https://earthquakeph.francisoliver.dev/quake-map" />
+      <meta property="og:url" content="https://earthquake-ph.herokuapp.com/quake-map" />
    <%} else if (route == '/about') { %>
       <title>Earthquake PH | About</title>
       <meta property="og:title" content="Earthquake PH | About" />
-      <meta property="og:url" content="https://earthquakeph.francisoliver.dev/about" />
+      <meta property="og:url" content="https://earthquake-ph.herokuapp.com/about" />
    <% } else if (route.includes('/quake/')){ %>
       <title>Earthquake PH | Detail</title>
       <meta property="og:title" content="Earthquake PH | Detail" />
       <% if (earthquake){%>
-         <meta property="og:url" content="https://earthquakeph.francisoliver.dev/quake/<%- earthquake.id_str %>" />
+         <meta property="og:url" content="https://earthquake-ph.herokuapp.com/quake/<%- earthquake.id_str %>" />
       <% } %>
    <% } else { %>
       <title>Earthquake PH</title>
       <meta property="og:title" content="Earthquake PH" />
    <% } %>
-   <meta property="og:image" content="http://earthquakeph.francisoliver.dev/img/main.png" />
-   <meta property="og:image:secure_url" content="https://earthquakeph.francisoliver.dev/img/main.png" />
+   <meta property="og:image" content="http://earthquake-ph.herokuapp.com/img/main.png" />
+   <meta property="og:image:secure_url" content="https://earthquake-ph.herokuapp.com/img/main.png" />
 	 <meta property="og:image:type" content="image/png" />
    <meta property="og:locale" content="en_US" />
    <meta name="description" content="Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account." />
@@ -71,7 +71,7 @@
    <meta property="twitter:title" content="Earthquake PH" />
    <meta name="twitter:site" content="@sicnarf_revilo" />
    <script type="application/ld+json">
-   {"sameAs":["https://facebook.com/sicnarfzurcrevilo","https://twitter.com/sicnarf_revilo","https://github.com/tripeersyou","https://linkedin.com/in/francisavancena","https://dev.to/sicnarf_revilo","https://instagram.com/francis.avancena"],"description":"Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account.","@type":"WebSite","url":"https://earthquakeph.francisoliver.dev/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://francisoliver.dev/assets/img/avatar.png"}},"name":"Francis Oliver Avanceña","headline":"Earthquake PH","@context":"https://schema.org"}
+   {"sameAs":["https://facebook.com/sicnarfzurcrevilo","https://twitter.com/sicnarf_revilo","https://github.com/tripeersyou","https://linkedin.com/in/francisavancena","https://dev.to/sicnarf_revilo","https://instagram.com/francis.avancena"],"description":"Showing and Visualizing PH Earthquakes from the official PHIVOLCS Twitter Account.","@type":"WebSite","url":"https://earthquake-ph.herokuapp.com/","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"https://francisoliver.dev/assets/img/avatar.png"}},"name":"Francis Oliver Avanceña","headline":"Earthquake PH","@context":"https://schema.org"}
    </script>
    <!-- HTML5 shim, for IE6-8 support of HTML elements -->
    <!--[if lt IE 9]>

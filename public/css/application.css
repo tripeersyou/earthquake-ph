@@ -22,6 +22,6 @@ iframe{
     z-index: 9999;
 }
 
-.leaflet-top.leaflet-right{
+.leaflet-top.leaflet-right, .leaflet-top.leaflet-left{
     padding-top: 5em;
 }

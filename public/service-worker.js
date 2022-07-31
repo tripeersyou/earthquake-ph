@@ -8,7 +8,7 @@ self.addEventListener("install", function (event) {
     caches.open(CACHE).then(function (cache) {
       console.log("Cached offline page during install");
 
-      if (offlineFallbackPage === "ToDo-replace-this-name.html") {
+      if (offlineFallbackPage === "offline.html") {
         return cache.add(new Response("TODO: Update the value of the offlineFallbackPage constant in the serviceworker."));
       }
 
@@ -19,6 +19,11 @@ self.addEventListener("install", function (event) {
 
 self.addEventListener("fetch", function (event) {
   if (event.request.method !== "GET") return;
+//   if (
+//     event.request.url.startsWith('chrome-extension') ||
+//     event.request.url.includes('extension') ||
+//     !(event.request.url.indexOf('http') === 0)
+// ) return;
 
   event.respondWith(
     fetch(event.request)
@@ -58,6 +63,7 @@ function fromCache(request) {
 }
 
 function updateCache(request, response) {
+
   return caches.open(CACHE).then(function (cache) {
     return cache.put(request, response);
   });
