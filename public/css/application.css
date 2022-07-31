@@ -12,3 +12,16 @@ iframe{
     z-index: 0 !important;
 }
 
+.ui.container{
+    padding-top: 5em;
+    padding-bottom: 5em;
+}
+
+.ui.bottom.fixed.menu, .ui.top.fixed.menu {
+    margin-top: 0px;
+    z-index: 9999;
+}
+
+.leaflet-top.leaflet-right{
+    padding-top: 5em;
+}
