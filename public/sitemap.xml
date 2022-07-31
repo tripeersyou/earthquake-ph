@@ -6,17 +6,17 @@
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 <url>
-  <loc>https://earthquakeph.francisoliver.dev/</loc>
+  <loc>https://earthquake-ph.herokuapp.com/</loc>
   <lastmod>2020-01-16T00:00:00+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://earthquakeph.francisoliver.dev/quake-map</loc>
+  <loc>https://earthquake-ph.herokuapp.com/quake-map</loc>
   <lastmod>2020-01-16T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://earthquakeph.francisoliver.dev/about</loc>
+  <loc>https://earthquake-ph.herokuapp.com/about</loc>
   <lastmod>2020-01-16T00:00:00+00:00</lastmod>
   <priority>0.80</priority>
 </url>
